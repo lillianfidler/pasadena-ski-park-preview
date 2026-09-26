@@ -40,7 +40,7 @@
 
 <main>
 
-  <section class="page-hero">
+  <section class="page-hero" style="background-image: url('assets/images/nature-mushrooms.jpg')">
     <h1>Our Nature Series</h1>
     <p>Notable Nature Series &mdash; 15 field guides by Henry Mann</p>
   </section>
@@ -57,39 +57,49 @@
     <h2 class="gallery-heading">Notable Nature Series</h2>
     <p style="max-width: 700px; margin: -1rem auto 2rem; text-align: center; color: #35464f;">Currently this series features 15 available programs, prepared for the PSNP by Henry Mann, a club member and retired biology professor from the Grenfell Campus of M.U.N.</p>
 
-    <div class="tab-grid">
-      <a href="#" class="tab tab-1">I &middot; Mushrooms</a>
-      <a href="#" class="tab tab-2">II &middot; Spring Wildflowers</a>
-      <a href="#" class="tab tab-3">III &middot; Summer Wildflowers</a>
-      <a href="#" class="tab tab-4">III+ &middot; More Summer Wildflowers</a>
-      <a href="#" class="tab tab-5">IV &middot; Autumn Wildflowers</a>
-      <a href="#" class="tab tab-6">V &middot; Fruits</a>
-      <a href="#" class="tab tab-1">VI &middot; Trees</a>
-      <a href="#" class="tab tab-2">VII &middot; Shrubs</a>
-      <a href="#" class="tab tab-3">VIII &middot; Ferns</a>
-      <a href="#" class="tab tab-4">IX &middot; Winter Birds</a>
-      <a href="#" class="tab tab-5">X &middot; Winter Twigs</a>
-      <a href="#" class="tab tab-6">XI &middot; Moss Gardens of Kay's Hill</a>
-      <a href="#" class="tab tab-1">XII &middot; Winter Mushrooms</a>
-      <a href="#" class="tab tab-2">XIII &middot; Winter Nature Notes</a>
-      <a href="#" class="tab tab-3">XIV &middot; Autumn Ground Mushrooms</a>
-      <a href="#" class="tab tab-4">XV &middot; Lichens</a>
+    <!-- Seasons for untitled-season guides (Mushrooms, Fruits, Trees, Shrubs, Ferns,
+         Moss Gardens, Lichens) are a best guess -- confirm with Karen. -->
+    <ul class="season-legend" aria-label="Colour key">
+      <li class="s-spring">Spring</li>
+      <li class="s-summer">Summer</li>
+      <li class="s-autumn">Autumn</li>
+      <li class="s-winter">Winter</li>
+      <li class="s-year">Year-round</li>
+    </ul>
+
+    <div class="series-grid">
+      <a href="#" class="series-tab s-autumn"><span class="num">I</span><span class="title">Mushrooms</span><span class="season">Autumn</span></a>
+      <a href="#" class="series-tab s-spring"><span class="num">II</span><span class="title">Spring Wildflowers</span><span class="season">Spring</span></a>
+      <a href="#" class="series-tab s-summer"><span class="num">III</span><span class="title">Summer Wildflowers</span><span class="season">Summer</span></a>
+      <a href="#" class="series-tab s-summer"><span class="num">III+</span><span class="title">More Summer Wildflowers</span><span class="season">Summer</span></a>
+      <a href="#" class="series-tab s-autumn"><span class="num">IV</span><span class="title">Autumn Wildflowers</span><span class="season">Autumn</span></a>
+      <a href="#" class="series-tab s-autumn"><span class="num">V</span><span class="title">Fruits</span><span class="season">Autumn</span></a>
+      <a href="#" class="series-tab s-year"><span class="num">VI</span><span class="title">Trees</span><span class="season">Year-round</span></a>
+      <a href="#" class="series-tab s-year"><span class="num">VII</span><span class="title">Shrubs</span><span class="season">Year-round</span></a>
+      <a href="#" class="series-tab s-summer"><span class="num">VIII</span><span class="title">Ferns</span><span class="season">Summer</span></a>
+      <a href="#" class="series-tab s-winter"><span class="num">IX</span><span class="title">Winter Birds</span><span class="season">Winter</span></a>
+      <a href="#" class="series-tab s-winter"><span class="num">X</span><span class="title">Winter Twigs</span><span class="season">Winter</span></a>
+      <a href="#" class="series-tab s-year"><span class="num">XI</span><span class="title">Moss Gardens of Kay's Hill</span><span class="season">Year-round</span></a>
+      <a href="#" class="series-tab s-winter"><span class="num">XII</span><span class="title">Winter Mushrooms</span><span class="season">Winter</span></a>
+      <a href="#" class="series-tab s-winter"><span class="num">XIII</span><span class="title">Winter Nature Notes</span><span class="season">Winter</span></a>
+      <a href="#" class="series-tab s-autumn"><span class="num">XIV</span><span class="title">Autumn Ground Mushrooms</span><span class="season">Autumn</span></a>
+      <a href="#" class="series-tab s-year"><span class="num">XV</span><span class="title">Lichens</span><span class="season">Year-round</span></a>
     </div>
   </section>
 
   <section class="content-block">
     <h2 class="gallery-heading">Brochures &amp; More</h2>
-    <div class="tab-grid">
-      <a href="https://ebird.org" target="_blank" rel="noopener" class="tab tab-6">eBird website</a>
-      <a href="#" class="tab tab-5">Owl Nest Box Brochure 2024</a>
-      <a href="#" class="tab tab-1">Brochure 1 &middot; Winter Mushrooms</a>
-      <a href="#" class="tab tab-2">Brochure 2 &middot; Winter Twigs</a>
-      <a href="#" class="tab tab-3">Brochure 3 &middot; Winter Structures</a>
-      <a href="#" class="tab tab-4">Brochure 4 &middot; Animal Signs</a>
-      <a href="#" class="tab tab-6">Foray 2010</a>
-      <a href="#" class="tab tab-1">Foray 2011</a>
-      <a href="#" class="tab tab-2">Foray 2012</a>
-      <a href="#" class="tab tab-3">Frustrated Squirrel</a>
+    <div class="resource-grid">
+      <a href="#" class="resource-link">Brochure 1 &middot; Winter Mushrooms</a>
+      <a href="#" class="resource-link">Brochure 2 &middot; Winter Twigs</a>
+      <a href="#" class="resource-link">Brochure 3 &middot; Winter Structures</a>
+      <a href="#" class="resource-link">Brochure 4 &middot; Animal Signs</a>
+      <a href="#" class="resource-link">Owl Nest Box Brochure 2024</a>
+      <a href="#" class="resource-link">Foray 2010</a>
+      <a href="#" class="resource-link">Foray 2011</a>
+      <a href="#" class="resource-link">Foray 2012</a>
+      <a href="#" class="resource-link">Frustrated Squirrel</a>
+      <a href="https://ebird.org" target="_blank" rel="noopener" class="resource-link external">eBird website &nearr;</a>
     </div>
     <p class="pending-note" style="margin-top: 2rem;"><strong>Note:</strong> tabs link out to the real PDF guides once Karen shares the files &ndash; brochures are a different, in-field format from the downloadable trail card discussed for The Chalet and Our Trails.</p>
   </section>

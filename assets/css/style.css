@@ -9,6 +9,9 @@
   --sky-blue: #5b9bd5;
   --gold: #f2a93b;
   --gold-dark: #d68a1f;
+  /* Gold for text/icons on light backgrounds: --gold and --gold-dark are too light
+     there (1.9-2.8:1). This keeps the hue and passes WCAG AA (>=4.5:1 on cream). */
+  --gold-text: #98621a;
   --cream: #fdfbf6;
   --ink: #1c2b36;
 
@@ -59,12 +62,20 @@ h2::after {
 }
 
 .cta-block h2::after,
+.newsletters h2::after,
 .gallery-heading::after {
   left: 50%;
   transform: translateX(-50%);
 }
 
 a { color: inherit; text-decoration: none; }
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--sky-blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
 img { max-width: 100%; display: block; }
 
@@ -128,7 +139,7 @@ img { max-width: 100%; display: block; }
   padding: 0.5rem 0;
 }
 
-.main-nav a:hover { color: var(--gold-dark); }
+.main-nav a:hover { color: var(--gold-text); }
 
 .has-dropdown {
   position: relative;
@@ -180,7 +191,7 @@ img { max-width: 100%; display: block; }
   border-radius: 999px;
 }
 
-.nav-cta a:hover { background: var(--gold-dark); color: #fff; }
+.nav-cta a:hover { background: var(--navy); color: #fff; }
 
 /* ---------- Hero ---------- */
 
@@ -302,7 +313,7 @@ img { max-width: 100%; display: block; }
   background: var(--gold);
   color: var(--navy-dark);
 }
-.btn-accent:hover { background: var(--gold-dark); color: #fff; }
+.btn-accent:hover { background: var(--navy); color: #fff; }
 
 .btn-outline {
   border: 2px solid #fff;
@@ -442,11 +453,16 @@ img { max-width: 100%; display: block; }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.9rem 1.4rem;
+  gap: 0.25rem 1.25rem;
   margin-bottom: 1.5rem;
 }
 
-.footer-nav a { font-size: 0.85rem; font-weight: 600; }
+.footer-nav a {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.65rem 0.25rem;
+}
 .footer-nav a:hover { color: var(--gold); }
 
 .footer-copy {
@@ -457,13 +473,54 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Shared inner-page content blocks ---------- */
 
-.main-nav a.active { color: var(--gold-dark); }
+.main-nav a.active { color: var(--gold-text); }
 
 .page-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background: linear-gradient(135deg, var(--navy-dark), var(--navy));
   color: #fff;
   text-align: center;
-  padding: 3.5rem 1.25rem 3rem;
+  padding: 4.25rem 1.25rem 3.75rem;
+}
+
+/* Optional per-page photo: style="background-image: url('assets/images/...')" on the
+   section (not a custom property -- Chrome resolves relative url()s in custom properties
+   against the stylesheet's folder, so the image 404s). Most source photos are 300-768px
+   wide, so it's blurred and tinted into a texture; sharp, it would look soft when
+   stretched across a wide screen. */
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  z-index: -2;
+  background-image: inherit;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(2px) saturate(1.2);
+}
+
+.page-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(46% 62% at 50% 55%, rgba(13,44,70,0.72) 0%, rgba(13,44,70,0.4) 60%, rgba(13,44,70,0) 100%),
+    linear-gradient(180deg, rgba(13,44,70,0.5) 0%, rgba(13,44,70,0.72) 100%);
+}
+
+.page-hero h1 { text-shadow: 0 2px 14px rgba(13,44,70,0.55); }
+.page-hero p { text-shadow: 0 1px 8px rgba(13,44,70,0.9); }
+
+@media (max-width: 700px) {
+  .page-hero::after {
+    background:
+      radial-gradient(70% 55% at 50% 58%, rgba(13,44,70,0.6) 0%, rgba(13,44,70,0) 100%),
+      linear-gradient(180deg, rgba(13,44,70,0.66) 0%, rgba(13,44,70,0.8) 100%);
+  }
 }
 
 .page-hero h1 {
@@ -522,20 +579,43 @@ img { max-width: 100%; display: block; }
   filter: saturate(1.12) contrast(1.05);
 }
 
-.stewardship-badge {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+/* Karen: feature the conservation sign, with its explanation below, beside the
+   Stewardship logo. Sign source is 768px wide, so it's capped there to stay sharp. */
+.stewardship-sign {
+  margin: 0 auto 2.25rem;
+  max-width: 768px;
 }
 
-.stewardship-badge img:first-child {
+.stewardship-sign img {
   width: 100%;
   border-radius: var(--radius);
-  box-shadow: 0 10px 24px rgba(20, 63, 99, 0.15);
+  box-shadow: 0 14px 30px rgba(20, 63, 99, 0.18);
 }
 
-.sam-icon { width: 90px; }
+.stewardship-body {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+}
+
+.stewardship-body .content-text p:first-child { margin-top: 0; }
+
+.stewardship-logo {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 6px 18px rgba(20, 63, 99, 0.1);
+}
+
+.stewardship-logo img { width: 180px; height: auto; }
+
+@media (max-width: 700px) {
+  .stewardship-body { grid-template-columns: 1fr; }
+  .stewardship-logo { justify-self: center; }
+}
 
 .newsletters { text-align: center; }
 .newsletters h2 { color: var(--navy); }
@@ -589,7 +669,7 @@ img { max-width: 100%; display: block; }
 
 .rate-card h3 { color: var(--navy); margin-top: 0; }
 .rate-card p { color: #35464f; font-size: 0.95rem; }
-.rate-card .rate-note { color: var(--gold-dark); font-weight: 600; }
+.rate-card .rate-note { color: var(--gold-text); font-weight: 600; }
 
 .pending-note {
   background: #fff6e6;
@@ -599,6 +679,106 @@ img { max-width: 100%; display: block; }
   color: #7a5310;
   font-size: 0.95rem;
 }
+
+.buy-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2.5rem;
+  flex-wrap: wrap;
+  background:
+    radial-gradient(60% 120% at 100% 0%, rgba(242,169,59,0.22) 0%, rgba(242,169,59,0) 60%),
+    var(--navy);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 2rem 2.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 14px 30px rgba(20, 63, 99, 0.18);
+}
+
+.buy-band .buy-title { color: #fff; margin: 0 0 0.35rem; font-size: clamp(1.4rem, 3vw, 1.8rem); padding: 0; }
+.buy-band .buy-title::after { display: none; }
+.buy-band p { margin: 0; color: #cfe0ee; max-width: 560px; }
+.buy-band strong { color: var(--gold); }
+
+.btn-large { padding: 1rem 2rem; font-size: 1.1rem; }
+
+.rates-heading { color: var(--navy); margin: 2.5rem 0 0.5rem; }
+.content-block > .rates-heading:first-child { margin-top: 0; }
+
+.season-tag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: #e7f0f9;
+  color: var(--navy);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.rates-sub { color: #4c5c68; margin: 0.75rem 0 1.5rem; }
+
+.rate-tables {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 1.5rem;
+}
+
+.rate-table-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem 1.25rem;
+  box-shadow: 0 6px 18px rgba(20, 63, 99, 0.1);
+}
+
+.rate-table-card h3 { color: var(--navy); margin: 0 0 0.75rem; font-size: 1.3rem; }
+.rate-table-card h3 span {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold-text);
+}
+
+.rate-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.rate-table th, .rate-table td { padding: 0.8rem 0.5rem; border-bottom: 1px solid #e6ecf1; text-align: right; }
+.rate-table tr:last-child th, .rate-table tr:last-child td { border-bottom: none; }
+.rate-table th:first-child { text-align: left; padding-left: 0; }
+.rate-table td:last-child, .rate-table th:last-child { padding-right: 0; }
+.rate-table thead th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #4c5c68;
+  font-weight: 700;
+  vertical-align: bottom;
+  border-bottom: 2px solid #d5e0e9;
+}
+.rate-table thead small { display: block; text-transform: none; letter-spacing: 0; font-weight: 500; }
+.rate-table tbody th { font-weight: 600; color: var(--ink); }
+.rate-table tbody th small { display: block; font-weight: 400; color: #5d6d78; font-size: 0.85rem; }
+.rate-table td { font-weight: 600; font-size: 1.05rem; color: var(--ink); }
+.rate-table .eb { background: #fff6e6; }
+.rate-table thead .eb { color: var(--gold-text); border-top-left-radius: 8px; border-top-right-radius: 8px; }
+.rate-table td.eb { color: var(--navy); font-weight: 700; }
+.rate-table .eb, .rate-table th.eb { padding-left: 0.75rem; padding-right: 0.75rem; }
+
+.locker-card { display: flex; flex-direction: column; justify-content: center; }
+.locker-price {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+  margin: 0.25rem 0 0.75rem;
+}
+.locker-price span { font-size: 1.6rem; }
+.locker-card p:last-child { color: #4c5c68; margin: 0; }
 
 .content-image.contain {
   object-fit: contain;
@@ -633,7 +813,7 @@ img { max-width: 100%; display: block; }
   content: "\2713";
   position: absolute;
   left: 0;
-  color: var(--gold-dark);
+  color: var(--gold-text);
   font-weight: 700;
 }
 
@@ -710,6 +890,103 @@ img { max-width: 100%; display: block; }
 .tab-5 { background: #a15c9e; }
 .tab-6 { background: #c1652f; }
 
+/* Nature Series: colour = season, so the colour carries meaning (Karen asked for
+   coloured tabs). Brochures are a different, in-field format, so they get a single
+   neutral outline style instead of competing colours. */
+.s-spring { --season: #3f7d4f; --season-ink: #fff; }
+.s-summer { --season: #f2a93b; --season-ink: var(--navy-dark); }
+.s-autumn { --season: #b5541f; --season-ink: #fff; }
+.s-winter { --season: #143f63; --season-ink: #fff; }
+.s-year   { --season: #5b9bd5; --season-ink: var(--navy-dark); }
+
+.season-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+  padding: 0;
+  margin: 0 auto 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #35464f;
+}
+.season-legend li::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--season);
+  margin-right: 0.45rem;
+  vertical-align: -2px;
+}
+
+.series-grid {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: 0.85rem;
+}
+
+.series-tab {
+  display: grid;
+  grid-template-columns: 3.1rem 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 0.75rem;
+  background: #fff;
+  border-radius: 12px;
+  border-left: 6px solid var(--season);
+  padding: 0.85rem 1rem 0.85rem 0.85rem;
+  box-shadow: 0 4px 12px rgba(20, 63, 99, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.series-tab:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(20, 63, 99, 0.16); }
+.series-tab .num {
+  grid-row: 1 / span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.6rem;
+  border-radius: 8px;
+  background: var(--season);
+  color: var(--season-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.series-tab .title { font-weight: 700; color: var(--navy); line-height: 1.3; }
+.series-tab .season {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5d6d78;
+}
+
+.resource-grid {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+  gap: 0.75rem;
+}
+.resource-link {
+  display: block;
+  padding: 0.85rem 1.1rem;
+  border: 2px solid #cfdbe5;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.resource-link:hover { border-color: var(--navy); background: #f3f7fb; }
+.resource-link.external { color: var(--gold-text); }
+
 .trail-length {
   display: inline-block;
   font-size: 0.75rem;
@@ -759,6 +1036,7 @@ img { max-width: 100%; display: block; }
 .form-row textarea:focus {
   outline: none;
   border-color: var(--sky-blue);
+  box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.35);
 }
 
 .contact-form .btn { border: none; cursor: pointer; width: 100%; }
