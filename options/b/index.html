@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasadena Ski &amp; Nature Park</title>
+<meta name="description" content="Nestled in the boreal forest of the Humber Valley, Pasadena Ski and Nature Park offers a unique environment for cross country skiing, snowshoeing and nature interpretation.">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preload" href="fonts/Unbounded.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Unbounded"; font-weight: 400 900; font-display: swap; src: url("fonts/Unbounded.woff2") format("woff2"); }
+@font-face { font-family: "Hanken Grotesk"; font-weight: 400 800; font-display: swap; src: url("fonts/HankenGrotesk.woff2") format("woff2"); }
+
+:root {
+  /* wax-tin colours */
+  --blue: #1f4e8c;
+  --violet: #5e3a96;
+  --yellow: #ffd23f;
+  --red: #b8293a;
+  /* the tin */
+  --navy: #0d2f5c;
+  --tin: #d6dde4;
+  --tin-dark: #9aa7b4;
+  --white: #ffffff;
+  --display: "Unbounded", system-ui, sans-serif;
+  --body: "Hanken Grotesk", system-ui, sans-serif;
+  --u: 8px;
+  --band: var(--blue);
+  --on-band: var(--white);
+  --on-band-soft: rgb(255 255 255 / 0.86);
+}
+body[data-season="spring"] { --band: var(--violet); }
+body[data-season="summer"] { --band: var(--yellow); --on-band: var(--navy); --on-band-soft: rgb(13 47 92 / 0.86); }
+body[data-season="fall"] { --band: var(--red); }
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--body); font-size: 1.0625rem; line-height: 1.55; color: var(--navy); background: var(--tin); -webkit-font-smoothing: antialiased; }
+::selection { background: var(--yellow); color: var(--navy); }
+:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+:is(.top, .hero, .chalet, .club, .foot) :focus-visible { outline-color: var(--yellow); }
+body[data-season="summer"] :is(.top, .hero, .club) :focus-visible { outline-color: var(--navy); }
+body[data-season="summer"] ::selection { background: var(--navy); color: var(--yellow); }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 2px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.02; letter-spacing: -0.02em; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+.wrap { width: min(1240px, 100% - 48px); margin-inline: auto; }
+
+/* ---------- Header: the tin's printed rim ---------- */
+.top { background: var(--band); color: var(--on-band); transition: background-color 500ms ease-out; }
+.top .wrap { display: flex; align-items: center; gap: 24px; min-height: 84px; border-bottom: 2px solid currentColor; }
+.logo { flex: none; background: var(--white); border-radius: 12px; padding: 6px 10px; }
+.logo img { height: 42px; width: auto; }
+.nav { margin-left: auto; }
+.nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 22px; }
+.nav a { display: block; padding: 10px 0; text-decoration: none; font-weight: 700; font-size: 0.95rem; }
+.nav a:hover, .nav a[aria-current] { text-decoration: underline; }
+.nav-toggle { display: none; }
+
+/* ---------- Hero band ---------- */
+.hero { background: var(--band); color: var(--on-band); transition: background-color 500ms ease-out, color 500ms ease-out; min-height: calc(100svh - 86px); display: grid; grid-template-rows: 1fr auto; }
+.hero .wrap { display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: center; padding-block: 40px 40px; }
+.hero h1 { margin-top: 0; font-size: clamp(2.5rem, 6vw, 5.6rem); font-weight: 800; }
+.hero .lede { margin-top: 28px; max-width: 40ch; font-size: 1.2rem; color: var(--on-band-soft); }
+.cta { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+
+/* silver tin label: the pass button */
+.pass {
+  display: inline-grid; grid-template-columns: auto auto; align-items: center; gap: 4px 18px;
+  padding: 16px 30px; min-height: 68px; border-radius: 999px;
+  background: var(--tin); color: var(--navy); text-decoration: none;
+  box-shadow: inset 0 0 0 3px var(--white), inset 0 0 0 5px var(--tin-dark), 0 14px 26px -12px rgb(0 0 0 / 0.5);
+  transition: transform 300ms cubic-bezier(.2,.8,.2,1);
+}
+.pass:hover { transform: translateY(-3px); }
+.pass b { font-family: var(--display); font-size: 1.35rem; font-weight: 800; }
+.pass small { grid-column: 1; font-weight: 600; font-size: 0.82rem; padding-top: 6px; border-top: 1px solid var(--navy); }
+.pass svg { grid-row: 1 / span 2; grid-column: 2; width: 26px; height: 26px; }
+.link { font-weight: 700; padding: 14px 4px; }
+
+/* the tin lid: a round photo in concentric rims */
+.lid { position: relative; aspect-ratio: 1; width: min(100%, 500px); justify-self: end; border-radius: 50%;
+  background: var(--tin);
+  box-shadow: inset 0 0 0 10px var(--white), inset 0 0 0 14px var(--tin-dark), 0 30px 50px -20px rgb(0 0 0 / 0.5);
+  padding: 26px; }
+.lid .rim { color: var(--navy); position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.lid .rim text { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: 3.2px; fill: currentColor; }
+.lid { padding: 44px; }
+.lid img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; transition: opacity 400ms ease-out; }
+.lid figcaption { position: absolute; left: 50%; bottom: 6%; translate: -50% 0; white-space: nowrap;
+  padding: 8px 16px; border-radius: 999px; background: var(--navy); color: var(--white); font-size: 0.85rem; font-weight: 700; }
+
+/* ---------- The other seasons: wax-band slivers at the hero's foot ---------- */
+.bands { list-style: none; margin: 0; padding: 0; }
+.bands button {
+  width: 100%; border: 0; cursor: pointer; font: inherit; text-align: left;
+  display: flex; gap: 24px; align-items: center;
+  padding: 0 max(24px, (100% - 1240px) / 2); min-height: 34px;
+  color: var(--white); transition: filter 200ms;
+}
+.bands button:hover { filter: brightness(1.1); }
+.bands button[aria-pressed="true"] { display: none; }
+.bands [data-band="winter"] { background: var(--blue); }
+.bands [data-band="spring"] { background: var(--violet); }
+.bands [data-band="summer"] { background: var(--yellow); color: var(--navy); }
+.bands [data-band="fall"] { background: var(--red); }
+.bands .name { font-family: var(--display); font-weight: 800; font-size: 0.95rem; min-width: 7em; }
+.bands .what { font-size: 0.92rem; font-weight: 600; }
+.bands :focus-visible { outline-offset: -4px; }
+.hero .bands [data-band="summer"]:focus-visible { outline-color: var(--navy); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.hero h1:focus { outline: none; }
+
+/* ---------- Trails: distance chart ---------- */
+.sect { padding-block: 96px; }
+.sect h2 { font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 800; }
+.sect .intro { margin-top: 18px; max-width: 56ch; font-size: 1.15rem; }
+.trails { background: var(--white); }
+.rows { margin: 48px 0 0; padding: 0; list-style: none; }
+.rows li + li { border-top: 2px solid var(--tin); }
+.rows a { display: grid; grid-template-columns: 200px 1fr 90px; gap: 8px 28px; align-items: center; padding: 18px 0; text-decoration: none; }
+.rows a:hover .bar { filter: brightness(1.12); }
+.rows .nm { font-family: var(--display); font-weight: 700; font-size: 1.25rem; }
+.rows .lv { grid-column: 1; font-size: 0.95rem; font-weight: 600; color: #3b5576; }
+.rows .bar { grid-row: 1 / span 2; grid-column: 2; height: 22px; border-radius: 999px; background: var(--blue); width: calc(var(--km) / 5 * 100%); min-width: 22px; transition: filter 200ms; }
+.rows .km { grid-row: 1 / span 2; grid-column: 3; font-family: var(--display); font-weight: 800; font-size: 1.6rem; font-variant-numeric: tabular-nums; text-align: right; }
+.rows .km span { font-size: 0.9rem; font-weight: 600; }
+.trail-foot { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: center; }
+.trail-foot p { max-width: 60ch; font-size: 0.95rem; }
+.btn { display: inline-flex; align-items: center; min-height: 52px; padding: 12px 24px; border-radius: 999px; background: var(--navy); color: var(--white); font-weight: 700; text-decoration: none; }
+.btn:hover { background: var(--blue); }
+.photostrip { margin-top: 56px; display: grid; grid-template-columns: 2.4fr 1fr 1fr; gap: 14px; }
+.photostrip img { width: 100%; height: 480px; object-fit: cover; border-radius: 24px; }
+
+/* ---------- Before you go: the tin itself ---------- */
+.tin { background: var(--tin); }
+.tin .grid { margin-top: 44px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 2px solid var(--navy); }
+.tin .cell { padding: 28px 28px 8px 0; }
+.tin .cell + .cell { padding-left: 28px; border-left: 2px solid var(--navy); }
+.tin h3 { font-size: 1.25rem; font-weight: 700; }
+.tin .cell p { margin-top: 12px; }
+.pending { margin-top: 16px; padding: 18px; border-radius: 16px; border: 2px dashed var(--navy); font-weight: 600; font-size: 0.95rem; }
+.tin .cell a:not(.btn) { font-weight: 700; }
+
+/* ---------- Chalet ---------- */
+.chalet { background: var(--navy); color: var(--white); }
+.chalet .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: center; }
+.chalet img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 28px; }
+.chalet .copy > p { margin-top: 22px; font-size: 1.15rem; max-width: 46ch; color: rgb(255 255 255 / 0.88); }
+.facts { margin: 32px 0 0; padding: 0; list-style: none; }
+.facts li { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 12px 0; border-top: 1px solid rgb(255 255 255 / 0.3); }
+.facts b { font-family: var(--display); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding-top: 3px; }
+.chalet .btn { background: var(--tin); color: var(--navy); margin-top: 32px; margin-right: 12px; }
+.chalet .btn:hover { background: var(--white); }
+
+/* ---------- Nature ---------- */
+.nature { background: var(--white); }
+.nature .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: start; }
+.series { margin: 32px 0 0; padding: 0; list-style: none; columns: 2; column-gap: 32px; }
+.series li { break-inside: avoid; display: flex; gap: 14px; align-items: baseline; padding: 8px 0; border-top: 2px solid var(--tin); }
+.series .num { font-family: var(--display); font-size: 0.8rem; font-weight: 700; min-width: 3.2em; }
+.series i { font-style: normal; font-size: 0.8rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-left: auto; white-space: nowrap; }
+.s-w { background: var(--blue); color: var(--white); }
+.s-sp { background: var(--violet); color: var(--white); }
+.s-su { background: var(--yellow); color: var(--navy); }
+.s-f { background: var(--red); color: var(--white); }
+.s-y { background: var(--navy); color: var(--white); }
+.nature blockquote { margin: 28px 0 0; font-family: var(--display); font-weight: 500; font-size: 1.3rem; line-height: 1.35; }
+.nature cite { display: block; margin-top: 14px; font: 600 0.95rem var(--body); font-style: normal; }
+.nature .side img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 28px; }
+
+/* ---------- Club ---------- */
+.club { background: var(--band); color: var(--on-band); transition: background-color 500ms ease-out, color 500ms ease-out; }
+.club .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+.club p { margin-top: 18px; max-width: 48ch; color: var(--on-band-soft); }
+.club .pending { border-color: currentColor; }
+.club .btn { margin-top: 24px; background: var(--white); color: var(--navy); }
+
+/* ---------- Footer ---------- */
+.foot { background: var(--navy); color: var(--white); padding-block: 72px 40px; }
+.foot .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; }
+.foot h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 14px; }
+.foot p { margin-top: 6px; color: rgb(255 255 255 / 0.88); }
+.foot nav { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+.foot nav a { display: flex; align-items: center; min-height: 44px; text-decoration: none; font-weight: 600; }
+.foot nav a:hover { text-decoration: underline; }
+.foot .copy { grid-column: 1 / -1; border-top: 1px solid rgb(255 255 255 / 0.25); padding-top: 22px; font-size: 0.9rem; }
+
+::view-transition-group(live-band) { animation-duration: 550ms; animation-timing-function: cubic-bezier(.16,1,.3,1); }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 450ms; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+@media (prefers-reduced-motion: reduce) {
+  *, ::view-transition-group(*) { transition: none !important; animation: none !important; }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 880px) {
+  .wrap { width: calc(100% - 40px); }
+  .top .wrap { flex-wrap: wrap; min-height: 72px; }
+  .nav-toggle { display: inline-flex; align-items: center; margin-left: auto; min-height: 48px; padding: 10px 20px; border: 2px solid currentColor; border-radius: 999px; background: none; color: inherit; font: 700 1rem var(--body); cursor: pointer; }
+  .js .nav { display: none; width: 100%; padding-bottom: 12px; }
+  .nav { width: 100%; padding-bottom: 12px; }
+  .nav-toggle { display: none; }
+  .js .nav-toggle { display: inline-flex; }
+  .js .nav.open { display: block; }
+  .nav ul { flex-direction: column; }
+  .nav a { padding: 12px 0; font-size: 1.1rem; }
+  .hero .wrap, .chalet .wrap, .nature .wrap, .club .wrap, .foot .wrap { grid-template-columns: 1fr; gap: 40px; }
+  .hero .wrap { padding-block: 12px 24px; gap: 14px; }
+  .lid { order: -1; justify-self: center; width: min(44vw, 170px); padding: 14px; }
+  .hero h1 { margin-top: 18px; font-size: 2.35rem; }
+  .hero .lede { margin-top: 16px; font-size: 1.05rem; }
+  .cta { margin-top: 24px; }
+  .pass { width: 100%; justify-content: space-between; }
+  .bands button { min-height: 24px; padding: 0 20px; gap: 12px; }
+  .lid figcaption { bottom: 14%; font-size: 0.75rem; padding: 4px 10px; }
+  .bands .what { display: none; }
+  .hero { min-height: 0; }
+  .lid { padding: 24px; }
+  .lid .rim text { font-size: 17px; }
+  .sect { padding-block: 64px; }
+  .rows a { grid-template-columns: 1fr auto; gap: 6px 16px; }
+  .rows .bar { grid-row: 3; grid-column: 1 / -1; }
+  .rows .km { grid-row: 1 / span 2; grid-column: 2; }
+  .photostrip { grid-template-columns: 1fr 1fr; }
+  .photostrip img { height: 260px; }
+  .photostrip img:first-child { grid-column: 1 / -1; }
+  .tin .grid { grid-template-columns: 1fr; }
+  .tin .cell, .tin .cell + .cell { padding: 24px 0; border-left: 0; }
+  .tin .cell + .cell { border-top: 2px solid var(--navy); }
+  .series { columns: 1; }
+  .facts li { grid-template-columns: 1fr; gap: 2px; }
+}
+</style>
+</head>
+<body data-season="winter">
+
+<header class="top">
+  <div class="wrap">
+    <a href="../../index.html" class="logo"><img src="../../assets/images/logo.jpg" alt="Pasadena Ski &amp; Nature Park, home" width="577" height="245"></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <ul>
+        <li><a href="#" aria-current="page">Home</a></li>
+        <li><a href="../../rates-and-rentals.html">Rates &amp; Rentals</a></li>
+        <li><a href="../../the-trail.html">Our Trails</a></li>
+        <li><a href="../../the-chalet.html">The Chalet</a></li>
+        <li><a href="../../activities.html">Activities</a></li>
+        <li><a href="../../events.html">Events</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../contact-us.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1 tabindex="-1"><span class="sr-only" data-s="live">Winter at the park: </span><span data-s="headline">Groomed, tracked, and ready to ski.</span></h1>
+        <p class="lede">Nestled in the boreal forest of the Humber Valley, Pasadena Ski and Nature Park offers a unique environment for cross country skiing, snowshoeing and nature interpretation.</p>
+        <div class="cta">
+          <a class="pass" href="https://zone4.ca/register.asp?id=39834" target="_blank" rel="noopener">
+            <b>Buy a pass</b><small>Day passes &amp; memberships on Zone4</small>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link" href="#trails">Six trails, 1 to 5 km</a>
+        </div>
+      </div>
+      <figure class="lid" style="margin:0">
+        <svg class="rim" viewBox="0 0 500 500" aria-hidden="true"><defs><path id="rimpath" d="M250 250 m-232 0 a232 232 0 1 1 464 0 a232 232 0 1 1 -464 0"/></defs><text><textPath href="#rimpath" textLength="1458" lengthAdjust="spacing" data-s="rim">PASADENA · WINTER · SKI · SNOWSHOE · PASADENA · WINTER · SKI · SNOWSHOE ·</textPath></text></svg>
+        <img data-s="photo" src="../../assets/images/about-groomed-tracks.jpeg" alt="Freshly groomed classic tracks running between spruce" width="768" height="1024">
+        <figcaption data-s="tag">Groomed tracks</figcaption>
+      </figure>
+    </div>
+    <ul class="bands" aria-label="Other seasons at the park">
+      <li><button type="button" data-band="winter" aria-pressed="true"><span class="name">Winter</span><span class="what">Skiing, snowshoeing, the Winter Carnival</span></button></li>
+      <li><button type="button" data-band="spring" aria-pressed="false"><span class="name">Spring</span><span class="what">Mayflowers, brooks and bogs</span></button></li>
+      <li><button type="button" data-band="summer" aria-pressed="false"><span class="name">Summer</span><span class="what">Hike and bike; Lone Pine and Looper mowed</span></button></li>
+      <li><button type="button" data-band="fall" aria-pressed="false"><span class="name">Fall</span><span class="what">Mushrooms and autumn colour</span></button></li>
+    </ul>
+  </section>
+
+
+  <section class="sect trails" id="trails">
+    <div class="wrap">
+      <h2>Six trails, all from the chalet</h2>
+      <p class="intro">Start short on Jackrabbit or go long on Caribou. Every loop brings you back to the wood stove.</p>
+      <ul class="rows">
+        <li><a href="../../the-trail.html" style="--km:1"><span class="nm">Jackrabbit</span><span class="lv">Beginner, good for a night ski</span><span class="bar"></span><span class="km">1<span> km</span></span></a></li>
+        <li><a href="../../the-trail.html" style="--km:2.5"><span class="nm">Lone Pine</span><span class="lv">Novice, past the owl boxes</span><span class="bar"></span><span class="km">2.5<span> km</span></span></a></li>
+        <li><a href="../../the-trail.html" style="--km:2.5"><span class="nm">Looper Run</span><span class="lv">Intermediate, Deer Lake view</span><span class="bar"></span><span class="km">2.5<span> km</span></span></a></li>
+        <li><a href="../../the-trail.html" style="--km:3"><span class="nm">Marten</span><span class="lv">Intermediate, rolling hills</span><span class="bar"></span><span class="km">3<span> km</span></span></a></li>
+        <li><a href="../../the-trail.html" style="--km:3"><span class="nm">Twisted</span><span class="lv">Challenging, the fire pit</span><span class="bar"></span><span class="km">3<span> km</span></span></a></li>
+        <li><a href="../../the-trail.html" style="--km:5"><span class="nm">Caribou</span><span class="lv">Intermediate, Long Range view</span><span class="bar"></span><span class="km">5<span> km</span></span></a></li>
+      </ul>
+      <div class="trail-foot">
+        <p>New, corrected trail maps (and GPS files) are on the way and will go up on the Our Trails page.</p>
+        <a class="btn" href="../../the-trail.html">Trail details</a>
+      </div>
+      <div class="photostrip">
+        <img src="../../assets/images/hero-caribou-snowy-trees.jpeg" alt="A wide groomed trail through snow-loaded spruce" width="1200" height="900" loading="lazy">
+        <img src="../../assets/images/trail-looper.jpg" alt="Looper Run, with Deer Lake through the trees" width="590" height="1024" loading="lazy">
+        <img src="../../assets/images/activities-playing.jpg" alt="A snowshoer in a yellow jacket by a picnic table" width="720" height="960" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="sect tin">
+    <div class="wrap">
+      <h2>Before you go</h2>
+      <div class="grid">
+        <div class="cell">
+          <h3>Conditions</h3>
+          <p>Refreshed on a schedule, not live. For right-now conditions, call the chalet.</p>
+          <div class="pending">Weather and conditions widget goes here</div>
+        </div>
+        <div class="cell">
+          <h3>Passes</h3>
+          <p>Day, night and season passes are sold on Zone4. A ski membership includes snowshoeing.</p>
+          <p><strong>2026&ndash;27 rates coming soon.</strong></p>
+          <p><a href="../../rates-and-rentals.html">Rates &amp; rentals</a></p>
+        </div>
+        <div class="cell">
+          <h3>Getting here</h3>
+          <p>12 Nordic Drive, Pasadena. TCH Exit 12 eastbound from Corner Brook, Exit 13 westbound from Deer Lake.</p>
+          <p><a href="tel:+17096865515">(709) 686-5515</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sect chalet">
+    <div class="wrap">
+      <img src="../../assets/images/chalet-fireplace.jpg" alt="The chalet wood stove with firewood stacked beside it" width="900" height="1200" loading="lazy">
+      <div class="copy">
+        <h2>The chalet</h2>
+        <p>Warm up at the wood stove, rent skis or snowshoes, and grab something at the canteen. It hosts weddings, reunions and team meetings too.</p>
+        <ul class="facts">
+          <li><b>Open</b><span>Staffed 9&ndash;5, seven days a week in winter</span></li>
+          <li><b>Heat</b><span>Wood stove and electric heat</span></li>
+          <li><b>Space</b><span>Veranda on three sides, upper deck, an acre of field for tents</span></li>
+          <li><b>Food</b><span>Kitchen for catering, canteen and bar service</span></li>
+        </ul>
+        <a class="btn" href="../../the-chalet.html">Book the chalet</a>
+        <a class="btn" href="tel:+17096865515">Call the chalet</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sect nature">
+    <div class="wrap">
+      <div>
+        <h2>Fifteen field guides</h2>
+        <p class="intro">The Nature Series, written for the park by Henry Mann, club member and retired biology professor at Grenfell Campus. A sample:</p>
+        <ul class="series">
+          <li><span class="num">I</span>Mushrooms<i class="s-f">Fall</i></li>
+          <li><span class="num">II</span>Spring Wildflowers<i class="s-sp">Spring</i></li>
+          <li><span class="num">III</span>Summer Wildflowers<i class="s-su">Summer</i></li>
+          <li><span class="num">VI</span>Trees<i class="s-y">All year</i></li>
+          <li><span class="num">IX</span>Winter Birds<i class="s-w">Winter</i></li>
+          <li><span class="num">XI</span>Moss Gardens of Kay's Hill<i class="s-y">All year</i></li>
+        </ul>
+        <a class="btn" href="../../nature-series.html" style="margin-top:32px">All fifteen guides</a>
+      </div>
+      <div class="side">
+        <img src="../../assets/images/about-pine-marten.jpg" alt="A pine marten on a snowy branch" width="512" height="402" loading="lazy">
+        <blockquote>&ldquo;Travel our trails quietly and enjoy what nature has to offer.&rdquo;<cite>71 bird species recorded in the park, plus marten, lynx, fox, moose and caribou.</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="sect club">
+    <div class="wrap">
+      <div>
+        <h2>What's on</h2>
+        <p>Events go up on Facebook first: socials, half-price days, and the Winter Carnival.</p>
+        <div class="pending">Facebook feed embed goes here</div>
+        <a class="btn" href="https://www.facebook.com/PasadenaSkiPark" target="_blank" rel="noopener">Follow @PasadenaSkiPark</a>
+      </div>
+      <div>
+        <h2>Run by volunteers</h2>
+        <p>About 180 members groom the trails and keep the chalet open. The club's roots go back fifty years, and every pass helps keep it going.</p>
+        <a class="btn" href="../../about.html">About the club</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <h2>Pasadena Ski &amp; Nature Park</h2>
+      <p>12 Nordic Drive, Pasadena, Newfoundland and Labrador</p>
+      <p><a href="tel:+17096865515">(709) 686-5515</a> &middot; <a href="mailto:pasadenaxc@gmail.com">pasadenaxc@gmail.com</a></p>
+      <p><a href="https://zone4.ca/register.asp?id=39834" target="_blank" rel="noopener">Buy a pass on Zone4</a></p>
+    </div>
+    <nav aria-label="Footer">
+      <a href="../../rates-and-rentals.html">Rates &amp; Rentals</a>
+      <a href="../../the-trail.html">Our Trails</a>
+      <a href="../../the-chalet.html">The Chalet</a>
+      <a href="../../activities.html">Activities</a>
+      <a href="../../nature-series.html">Nature Series</a>
+      <a href="../../events.html">Events</a>
+      <a href="../../winter-carnival.html">Winter Carnival</a>
+      <a href="../../contact-us.html">Contact</a>
+    </nav>
+    <p class="copy">&copy; 2026 Pasadena Ski and Nature Park. A volunteer-run, nonprofit club.</p>
+  </div>
+</footer>
+
+<script>
+
+const IMG = "../../assets/images/";
+const SEASONS = {
+  winter: { rim: "WINTER · SKI · SNOWSHOE", headline: "Groomed, tracked, and ready to ski.", photo: "about-groomed-tracks.jpeg", alt: "Freshly groomed classic tracks running between spruce", tag: "Groomed tracks" },
+  spring: { rim: "SPRING · WALK · WATCH", headline: "The snow goes. The bogs wake up.", photo: "spring-mayflowers.jpg", alt: "Pink mayflowers in the leaf litter", tag: "Mayflowers" },
+  summer: { rim: "SUMMER · HIKE · BIKE", headline: "Boots on. Lone Pine and Looper are mowed.", photo: "nature-summer-banner.jpg", alt: "Summer green along a park trail", tag: "Summer trails" },
+  fall:   { rim: "FALL · WALK · FORAGE", headline: "Mushroom season in the boreal forest.", photo: "nature-mushrooms.jpg", alt: "Mushrooms on the forest floor", tag: "Autumn mushrooms" }
+};
+const $ = s => document.querySelector(`[data-s="${s}"]`);
+function apply(name) {
+  const s = SEASONS[name];
+  document.body.dataset.season = name;
+  $("rim").textContent = `PASADENA · ${s.rim} · PASADENA · ${s.rim} ·`;
+  $("headline").textContent = s.headline;
+  $("live").textContent = name[0].toUpperCase() + name.slice(1) + " at the park: ";
+  $("photo").src = IMG + s.photo; $("photo").alt = s.alt;
+  $("tag").textContent = s.tag;
+  document.querySelectorAll(".bands button").forEach(b => b.setAttribute("aria-pressed", b.dataset.band === name));
+}
+const hero = document.querySelector(".hero");
+document.querySelectorAll(".bands button").forEach(b => b.addEventListener("click", () => {
+  const go = () => {
+    b.style.viewTransitionName = "";
+    hero.style.viewTransitionName = "live-band";
+    apply(b.dataset.band);
+  };
+  const done = () => { hero.style.viewTransitionName = ""; hero.querySelector("h1").focus(); };
+  if (document.startViewTransition && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    b.style.viewTransitionName = "live-band";
+    document.startViewTransition(go).finished.finally(done);
+  } else { go(); done(); }
+}));
+const toggle = document.querySelector(".nav-toggle");
+toggle.addEventListener("click", () => {
+  const open = toggle.getAttribute("aria-expanded") !== "true";
+  toggle.setAttribute("aria-expanded", open);
+  document.getElementById("nav").classList.toggle("open", open);
+});
+</script>
+</body>
+</html>
