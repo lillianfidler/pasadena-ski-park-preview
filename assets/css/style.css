@@ -162,6 +162,16 @@ img { max-width: 100%; display: block; }
   gap: 0;
 }
 
+/* Invisible bridge over the gap so the menu stays open while the pointer travels from the link to it */
+.main-nav .dropdown::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -0.6rem;
+  height: 0.6rem;
+}
+
 .main-nav .has-dropdown:hover .dropdown,
 .main-nav .has-dropdown:focus-within .dropdown {
   display: flex;
