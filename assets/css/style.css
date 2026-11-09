@@ -173,7 +173,8 @@ img { max-width: 100%; display: block; }
 }
 
 .main-nav .has-dropdown:hover .dropdown,
-.main-nav .has-dropdown:focus-within .dropdown {
+.main-nav .has-dropdown:focus-within .dropdown,
+.main-nav .has-dropdown.open .dropdown {
   display: flex;
 }
 

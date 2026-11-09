@@ -84,3 +84,26 @@ document.addEventListener('DOMContentLoaded', () => {
     box.innerHTML = '<p class="widget-placeholder">The weather is taking a nap. Check Facebook for today’s trail conditions.</p>';
   });
 })();
+
+/* Touch screens in the wide layout: first tap on a menu with a dropdown opens it, second tap follows the link. */
+document.addEventListener('DOMContentLoaded', () => {
+  const parents = document.querySelectorAll('.main-nav .has-dropdown');
+  parents.forEach((li) => {
+    const link = li.querySelector(':scope > a');
+    const menu = li.querySelector('.dropdown');
+    if (!link || !menu) return;
+    link.addEventListener('click', (e) => {
+      if (!window.matchMedia('(hover: none)').matches) return;
+      if (getComputedStyle(menu).position !== 'absolute') return;
+      if (li.classList.contains('open')) return;
+      e.preventDefault();
+      parents.forEach((other) => other.classList.remove('open'));
+      li.classList.add('open');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.has-dropdown')) {
+      parents.forEach((li) => li.classList.remove('open'));
+    }
+  });
+});
