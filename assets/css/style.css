@@ -1183,7 +1183,7 @@ img { max-width: 100%; display: block; }
 
 .grooming .grooming-photo { height: 100%; min-height: 360px; max-height: 480px; }
 .grooming .grooming-drone { margin-top: 1.25rem; height: 220px; }
-.nl-cup h2::after { margin-left: auto; margin-right: auto; }
+.nl-cup h2::after { left: 50%; transform: translateX(-50%); }
 
 /* Home: the wave under the hero flows straight into the Buy strip, no cream gap. */
 .hero:has(+ .buy-pill-strip) .hero-wave path { fill: var(--navy-dark); }
@@ -1226,6 +1226,8 @@ img { max-width: 100%; display: block; }
 
 /* Calmer yellow: one bright accent per screen, navy for hover and active states. */
 .main-nav a:hover, .main-nav a.active { color: var(--navy); box-shadow: 0 2px 0 var(--sun); }
+/* Nov 2026, Karen/Lillian: dropdown items get a solid light yellow box, no underline. */
+.main-nav .dropdown a:hover, .main-nav .dropdown a:focus-visible, .main-nav .dropdown a.active { box-shadow: none; background: #fff1b8; color: var(--navy); }
 .page-hero p { color: #e6eef5; }
 .buy-band strong { color: #fff; }
 .early-bird-banner { background: #fff6d6; border-left: 5px solid var(--sun); text-align: left; }
@@ -1279,3 +1281,21 @@ img { max-width: 100%; display: block; }
 }
 .grooming .grooming-photo, .grooming .grooming-drone { width: 100%; }
 .photo-gallery.single { columns: 1; max-width: 760px; }
+
+/* Nov 2026, Karen: coloured snowshoe trail signs */
+:root { --sign-yellow: #f4c20d; --sign-orange: #f07d1a; --sign-blue: #1e63c6; --sign-magenta: #c2188a; }
+.trail-signs { margin-top: 2rem; text-align: center; }
+.trail-signs figure { margin: 1rem auto; max-width: 420px; }
+.trail-signs img { width: 100%; height: auto; border-radius: var(--radius); box-shadow: 0 6px 16px rgba(20, 63, 99, 0.18); }
+.sign-key { list-style: none; padding: 0; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem; }
+.sign-key li { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; }
+.swatch { width: 1.1rem; height: 1.1rem; border-radius: 50%; display: inline-block; }
+.swatch-yellow { background: var(--sign-yellow); }
+.swatch-orange { background: var(--sign-orange); }
+.swatch-blue { background: var(--sign-blue); }
+.swatch-magenta { background: var(--sign-magenta); }
+.trail-sign { margin: 0; text-align: center; justify-self: center; }
+.trail-sign img { max-height: 420px; }
+.trail-sign figcaption { margin-top: 0.6rem; font-weight: 600; color: var(--navy); }
+.content-grid.reverse .trail-sign { order: 1; }
+@media (max-width: 700px) { .content-grid.reverse .trail-sign { order: 0; } }
