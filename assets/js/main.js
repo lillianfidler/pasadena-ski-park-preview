@@ -107,3 +107,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Contact form: sends to the site's own mailer (/contact-send on our server) and shows the result on the page.
+(function () {
+  var form = document.getElementById('contactForm');
+  if (!form) return;
+  var status = document.getElementById('formStatus');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    status.className = 'form-status pending';
+    status.textContent = 'Sending your message...';
+    fetch('/contact-send', { method: 'POST', headers: { 'Accept': 'application/json' }, body: new URLSearchParams(new FormData(form)) })
+      .then(function (res) {
+        return res.json().then(function (data) { if (!res.ok) throw new Error(data.error); });
+      })
+      .then(function () {
+        status.className = 'form-status success';
+        status.textContent = 'Thank you! Your message has been sent. We will get back to you soon.';
+        form.reset();
+      })
+      .catch(function () {
+        status.className = 'form-status error';
+        status.textContent = 'Sorry, your message could not be sent. Please try again, or email us at pasadenaxc@gmail.com.';
+      });
+  });
+})();

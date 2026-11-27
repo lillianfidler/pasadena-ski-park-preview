@@ -77,7 +77,8 @@
 
   <section class="content-block alt-bg">
     <h2 class="gallery-heading">Send us a message</h2>
-    <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <form class="contact-form" id="contactForm" action="/contact-send" method="POST">
+      <div style="position:absolute;left:-9999px" aria-hidden="true"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
       <div class="form-row">
         <label for="name">Name *</label>
         <input type="text" id="name" name="name" required>
@@ -91,6 +92,7 @@
         <textarea id="message" name="message" rows="5" required></textarea>
       </div>
       <button type="submit" class="btn btn-accent">Send Message</button>
+      <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
     </form>
     <p class="pending-note" style="max-width: 600px; margin: 1.5rem auto 0;"><strong>Not wired up yet:</strong> this form needs a real Formspree (or similar) account connected before it can actually deliver messages &ndash; the action URL above is a placeholder.</p>
   </section>
